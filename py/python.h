@@ -6,6 +6,8 @@
 
 #include "py/module.h"
 #include "py/function.h"
+#include "py/class.h"
+#include "py/object.h"
 
 namespace melon
 {

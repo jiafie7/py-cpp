@@ -10,6 +10,7 @@ namespace melon
     class Argument
     {
         friend class Function;
+        friend class Object;
       public:
         Argument() = default;
         ~Argument() = default;

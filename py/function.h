@@ -3,6 +3,7 @@
 #include <string>
 #include "py/module.h"
 #include "py/argument.h"
+#include "py/object.h"
 
 namespace melon
 {
@@ -12,7 +13,8 @@ namespace melon
     {
       public:
         Function() = default;
-        Function(const Module & module, const std::string & name);
+        Function(const Module& module, const std::string & name);
+        Function(const Object& object, const std::string & name);
         ~Function() = default;
 
         void call();
@@ -38,7 +40,6 @@ namespace melon
     template <typename T, typename... Args>
     T Function::call(Args... args)
     {
-      T result;
       Argument arg;
       arg.bind(args...);
       PyObject* res = PyObject_CallObject(m_function, arg.m_args);

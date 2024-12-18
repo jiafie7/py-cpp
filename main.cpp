@@ -19,6 +19,15 @@ int main()
 
     Function add(test1, "add");
     add.call<int>(1, 2);
+
+    Class Person(test1, "Person"); 
+    Object person_1(Person, "Michael", 21);
+    Function foo_1(person_1, "foo");
+    foo_1.call();
+    
+    Object person_2(Person, "Jerry", 27);
+    Function foo_2(person_2, "foo");
+    foo_2.call();
   }
   catch (std::exception& e)
   {
