@@ -48,11 +48,11 @@ int main()
     return -1;
   }
 
-  PyObject* args = PyTuple_New(2);
-  PyTuple_SetItem(args, 0, Py_BuildValue("i", 1));
-  PyTuple_SetItem(args, 1, Py_BuildValue("i", 2));
+  PyObject* add_args = PyTuple_New(2);
+  PyTuple_SetItem(add_args, 0, Py_BuildValue("i", 1));
+  PyTuple_SetItem(add_args, 1, Py_BuildValue("i", 2));
 
-  PyObject* res = PyObject_CallObject(add, args);
+  PyObject* res = PyObject_CallObject(add, add_args);
   
   int result;
   PyArg_Parse(res, "i", &result);
@@ -60,6 +60,25 @@ int main()
   std::cout << "result = " << result << '\n';
 
   // ---------------------------
+  PyObject* Person = PyObject_GetAttrString(test1, "Person");
+  if (Person == nullptr)
+  {
+    std::cout << "class not found." << '\n';
+    return -1;
+  }
+  
+  PyObject* person_args = PyTuple_New(2);
+  PyTuple_SetItem(person_args, 0, Py_BuildValue("s", "Michael"));
+  PyTuple_SetItem(person_args, 1, Py_BuildValue("i", 21));
+  PyObject* person = PyObject_CallObject(Person, person_args);
+
+  PyObject* foo = PyObject_GetAttrString(person, "foo");
+  if (foo == nullptr || !PyCallable_Check(foo))
+  {
+    std::cout << "function not found: foo" << '\n';
+    return -1;
+  }
+  PyObject_CallObject(foo, nullptr);
 
   Py_Finalize();
 
