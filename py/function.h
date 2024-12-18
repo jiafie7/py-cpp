@@ -2,6 +2,7 @@
 
 #include <string>
 #include "py/module.h"
+#include "py/argument.h"
 
 namespace melon
 {
@@ -15,10 +16,33 @@ namespace melon
         ~Function() = default;
 
         void call();
+      
+        template <typename T>
+        T call();
 
+        template <typename T, typename... Args>
+        T call(Args... args);
 
       private:
         PyObject * m_function = nullptr;
     };
+            
+    template <typename T>
+    T Function::call()
+    {
+      PyObject* res = PyObject_CallObject(m_function, nullptr);
+      Argument arg;
+      return arg.parseResult<T>(res);
+    }
+
+    template <typename T, typename... Args>
+    T Function::call(Args... args)
+    {
+      T result;
+      Argument arg;
+      arg.bind(args...);
+      PyObject* res = PyObject_CallObject(m_function, arg.m_args);
+      return arg.parseResult<T>(res);
+    }
   }
 }

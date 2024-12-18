@@ -16,6 +16,9 @@ int main()
 
     Function say(test1, "say");
     say.call();
+
+    Function add(test1, "add");
+    add.call<int>(1, 2);
   }
   catch (std::exception& e)
   {
