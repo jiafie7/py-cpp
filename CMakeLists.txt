@@ -4,7 +4,9 @@ project(py-cpp)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_compile_options(-g -O2 -Wall -Werror)
+add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+add_compile_options(-g -O2 -Wall -Werror -Wno-unused)
 
 include_directories(./)
 include_directories(~/opt/anaconda3/include/python3.9/)
