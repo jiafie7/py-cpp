@@ -16,4 +16,5 @@ file(GLOB_RECURSE SOURCES "py/*.cpp")
 link_directories(~/opt/anaconda3/lib/)
 link_libraries(python3.9)
 
+add_executable(test ${SOURCES} test.cpp)
 add_executable(main ${SOURCES} main.cpp)
